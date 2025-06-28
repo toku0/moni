@@ -3,3 +3,4 @@ __pycache__/
 gui.dist/
 gui.build/
 gui.onefile-build/
+.DS_Store
