@@ -1,0 +1,1 @@
+nuitka --standalone --onefile --enable-plugin=tk-inter --windows-icon-from-ico=main.ico gui.py
