@@ -616,7 +616,7 @@ class himitsutalkClient:
 
         return False
 
-    def update_profile_metadata(self, nickname: str, gender: str, age: str, filename: str) -> bool:
+    def update_profile_metadata(self, nickname: str, gender: str, age: str, filename: str, biography: str = "") -> bool:
         """プロフィールメタデータを更新"""
         try:
             ts = self._get_timestamp()
@@ -626,7 +626,7 @@ class himitsutalkClient:
                 "gender": str(gender),
                 "age": str(age),
                 "place": "",
-                "biography": "",
+                "biography": str(biography),  # 自己紹介を設定
                 "profile_icon_filename": filename,
                 "uuid": self._device_uuid,
                 "timestamp": ts,
@@ -723,7 +723,7 @@ class himitsutalkClient:
             logging.error(f"❌ ユーザー写真設定エラー: {str(e)}")
             return False
 
-    def update_profile(self, nickname: str, gender: str, age: str, image_path: str) -> bool:
+    def update_profile(self, nickname: str, gender: str, age: str, image_path: str, biography: str = "") -> bool:
         """プロフィールを完全に更新（画像 + メタデータ）"""
         try:
             logging.info(
@@ -746,7 +746,7 @@ class himitsutalkClient:
 
             # 4. プロフィールメタデータを更新
             logging.info(f"📝 プロフィールメタデータ更新開始")
-            if not self.update_profile_metadata(nickname, gender, age, filename):
+            if not self.update_profile_metadata(nickname, gender, age, filename, biography):
                 logging.error(f"❌ プロフィールメタデータ更新失敗")
                 return False
 

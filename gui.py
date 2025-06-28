@@ -331,6 +331,12 @@ def dm_tab_content(page):
     female_nickname = ft.TextField(
         label="女性用", width=150, value="", disabled=True)
 
+    # 自己紹介入力フィールド
+    unset_biography = ft.TextField(
+        label="未設定用", width=150, value="", disabled=True, multiline=True, min_lines=2, max_lines=3, max_length=50)
+    female_biography = ft.TextField(
+        label="女性用", width=150, value="", disabled=True, multiline=True, min_lines=2, max_lines=3, max_length=50)
+
     def on_profile_settings_change(e):
         # チェックボックスの状態に応じて各コントロールの有効/無効を切り替え
         is_enabled = e.control.value
@@ -338,6 +344,8 @@ def dm_tab_content(page):
         female_image_btn.disabled = not is_enabled
         unset_nickname.disabled = not is_enabled
         female_nickname.disabled = not is_enabled
+        unset_biography.disabled = not is_enabled
+        female_biography.disabled = not is_enabled
         page.update()
 
     # プロフィール設定オプション
@@ -358,6 +366,11 @@ def dm_tab_content(page):
                 ft.Text("ニックネーム:"),
                 unset_nickname,
                 female_nickname,
+            ]),
+            ft.Row([
+                ft.Text("自己紹介:"),
+                unset_biography,
+                female_biography,
             ]),
         ]),
         padding=10,
@@ -512,7 +525,8 @@ def dm_tab_content(page):
                                     nickname=profile_config["nickname"],
                                     gender=gender_for_api,
                                     age=account.get("age", "20"),
-                                    image_path=profile_config["image"]
+                                    image_path=profile_config["image"],
+                                    biography=profile_config["biography"]
                                 ):
                                     # 成功処理
                                     log_box.value = f"✅ プロフィール更新成功 ID: {account['user_id']} ニックネーム: {profile_config['nickname']} ({gender_name})\n" + \
@@ -995,11 +1009,13 @@ def dm_tab_content(page):
                 "unset": {
                     "image": selected_files["unset"],
                     "nickname": unset_nickname.value.strip(),
+                    "biography": unset_biography.value.strip(),
                     "gender": "unset"
                 },
                 "female": {
                     "image": selected_files["female"],
                     "nickname": female_nickname.value.strip(),
+                    "biography": female_biography.value.strip(),
                     "gender": "female"
                 }
             }
