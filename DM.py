@@ -750,11 +750,11 @@ class himitsutalkClient:
                 logging.error(f"❌ プロフィールメタデータ更新失敗")
                 return False
 
-            # 5. ユーザー写真を設定
-            logging.info(f"🖼️ ユーザー写真設定開始")
-            if not self.set_user_photo(filename):
-                logging.error(f"❌ ユーザー写真設定失敗")
-                return False
+            # 5. ユーザー写真を設定 モニーでは必要ない
+            # logging.info(f"🖼️ ユーザー写真設定開始")
+            # if not self.set_user_photo(filename):
+                # logging.error(f"❌ ユーザー写真設定失敗")
+                # return False
 
             logging.info(f"✅ プロフィール完全更新成功: {nickname}")
             return True
